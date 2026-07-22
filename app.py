@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://student-performance-predictor-fm00.onrender.com/predict"
 
 # App title
 st.title("Student Performance Predictor")
@@ -37,15 +37,20 @@ if st.button("Predict Performance"):
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.metric("Grade", result["grade"])
+            st.metric("Grade", result["output"]["grade"])
 
         with col2:
-            if result["pass_fail"] == "Pass":
+            if result["output"]["pass_fail"] == "Pass":
                 st.success("Pass")
             else:
                 st.error("Fail")
-
+                
         with col3:
-            st.metric("Performance Level", result["performance_level"])
+            st.metric("Performance Level", result["output"]["performance_level"])
+        
+
+        
+
+        
     else:
         st.error(f"API Error {response.status_code}: {response.text}")
